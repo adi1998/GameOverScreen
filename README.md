@@ -1,6 +1,6 @@
 ## Game Over Screen
 
-Shows a Game Over screen on dying in a run similar to the game's Vistory screen. Also adds a Victory screen after completing a regular Chaos Trial.
+Shows a Game Over screen on dying in a run similar to the game's Victory screen. Also adds a Victory screen for completing a regular Chaos Trial.
 
 ## Installation
 
