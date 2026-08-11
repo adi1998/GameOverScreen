@@ -1,4 +1,4 @@
----@meta zerp-DreamDiveTweaks
+---@meta zerp-GameOverScreen
 local public = {}
 
 -- document whatever you made publicly available to other plugins here
