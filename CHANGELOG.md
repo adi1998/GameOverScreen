@@ -2,7 +2,11 @@
 
 ## [Unreleased]
 
-- Compat for Dream Dive Tweaks' Endless runs
+- Compat for Dream Dive Tweaks' Endless runs.
+- Add Retry Run button.
+- Fix the fade to black after Moros' appearance hiding the game over screen.
+- Don't show Victory subtitle for lost runs.
+- Don't show new time record badge for lost runs.
 
 ## [1.0.0] - 2026-08-11
 

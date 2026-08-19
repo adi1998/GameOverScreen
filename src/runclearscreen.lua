@@ -1,3 +1,42 @@
+game.ScreenData.RunClear.ComponentData[_PLUGIN.guid .. "RetryButton"] =
+{
+    Graphic = "ContextualActionButton",
+    X = 250,
+    Y = 50,
+    Alpha = 0.0,
+    AlphaTarget = 0.0,
+    Data =
+    {
+        OnMouseOverFunctionName = "MouseOverContextualAction",
+        OnMouseOffFunctionName = "MouseOffContextualAction",
+        OnPressedFunctionName = _PLUGIN.guid .. "." .. "RetryRun",
+        ControlHotkeys = { "Reroll", },
+    },
+    Text = "{RR} RETRY RUN",
+    TextArgs = game.UIData.ContextualButtonFormatRight,
+    Requirements =
+    {
+        OrRequirements =
+        {
+            [1] =
+            {
+                {
+                    PathTrue = { "GameState", "ReachedTrueEnding" },
+                },
+            },
+            [2] =
+            {
+                {
+                    PathTrue = { "CurrentRun", "IsDreamRun" },
+                },
+            },
+        },
+        {
+            PathTrue = { "CurrentRun", "ActiveBounty" },
+        }
+    }
+}
+
 modutil.mod.Path.Wrap("CloseRunClearScreen", function (base, screen)
     base(screen)
     game.ScreenData.RunClear.ComponentData.DreamRunTitleText.Text = "RunClearScreen_Title"
@@ -30,7 +69,31 @@ modutil.mod.Path.Wrap("DeathPresentation", function (base, ...)
     base(...)
     -- only show this if its never seen before in this run
     if (game.CurrentRun.ScreenViewRecord["RunClear"] or 0) <= 0 or game.CurrentRun["zerp-DreamDiveTweaks" .. "EndlessStarted"] or game.CurrentRun["zerp-BossRush" .. "GauntletStarted"] then
+        game.FadeIn({ Duration = 0 })
         game.thread(mod.OpenGameOverScreen)
         game.waitUntil(_PLUGIN.guid .. "CloseRunClearScreenTriggered")
+    end
+end)
+
+function mod.RetryRun(screen)
+    game.CurrentRun[_PLUGIN.guid .. "Retry"] = true
+    game.CloseRunClearScreen(screen)
+end
+
+modutil.mod.Path.Wrap("StartOver", function (base, args)
+    base(args)
+    if game.CurrentRun then
+        game.CurrentRun[_PLUGIN.guid .. "SavedStartOverArgs"] = args
+    end
+end)
+
+modutil.mod.Path.Wrap("RunClearMessagePresentation", function (base, screen, message, tooltipData)
+    if screen[_PLUGIN.guid .. "SkipRecordRunCleared"] and not( game.CurrentRun.IsDreamRun or game.CurrentRun.ActiveBounty ) then
+        message = ""
+        game.CurrentRun.VictoryMessage = nil
+    end
+    base(screen, message, tooltipData)
+    if screen.Components[_PLUGIN.guid .. "RetryButton"] then
+        game.SetAlpha({ Id = screen.Components[_PLUGIN.guid .. "RetryButton"].Id, Duration = game.HUDScreen.FadeInDuration, Fraction = 1.0 })
     end
 end)
