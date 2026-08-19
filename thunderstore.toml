@@ -4,7 +4,7 @@ schemaVersion = "0.0.1"
 [package]
 namespace = "zerp"
 name = "GameOverScreen"
-versionNumber = "1.0.2"
+versionNumber = "1.1.0"
 description = "Shows a Game Over screen on dying in a run similar to the Victory screen. Also adds a quick retry button which instantly starts a new run."
 websiteUrl = "https://github.com/adi1998/GameOverScreen"
 containsNsfwContent = false
