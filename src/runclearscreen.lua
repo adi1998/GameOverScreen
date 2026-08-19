@@ -1,3 +1,28 @@
+local retryRequirements = {
+    OrRequirements =
+    {
+        {
+            {
+                PathTrue = { "GameState", "ReachedTrueEnding" },
+            },
+        },
+        {
+            {
+                PathTrue = { "CurrentRun", "IsDreamRun" },
+            },
+        },
+        {
+            {
+                PathFromSource = true,
+                PathTrue = { _PLUGIN.guid .. "SkipRecordRunCleared" }
+            },
+        }
+    },
+    {
+        PathFalse = { "CurrentRun", "ActiveBounty" },
+    }
+}
+
 game.ScreenData.RunClear.ComponentData[_PLUGIN.guid .. "RetryButton"] =
 {
     Graphic = "ContextualActionButton",
@@ -14,26 +39,25 @@ game.ScreenData.RunClear.ComponentData[_PLUGIN.guid .. "RetryButton"] =
     },
     Text = "{RR} RETRY RUN",
     TextArgs = game.UIData.ContextualButtonFormatRight,
-    Requirements =
-    {
-        OrRequirements =
-        {
-            {
-                {
-                    PathTrue = { "GameState", "ReachedTrueEnding" },
-                },
-            },
-            {
-                {
-                    PathTrue = { "CurrentRun", "IsDreamRun" },
-                },
-            },
-        },
-        {
-            PathFalse = { "CurrentRun", "ActiveBounty" },
-        }
-    }
+    Requirements = retryRequirements
 }
+
+game.ScreenData.RunClear.ComponentData[_PLUGIN.guid .. "RetryBackground"] =
+{
+    AnimationName = "GUI\\ActionBar",
+    GroupName = "HUD_Backing",
+    X = game.ScreenCenterX,
+    Y = game.UIData.ActionBarBottomOffset,
+    UseScreenScaleX = true,
+    Requirements = retryRequirements
+}
+
+for index, value in ipairs(game.ScreenData.RunClear.ComponentData.Order) do
+    if value  == "ActionBarBackground" then
+        table.insert(game.ScreenData.RunClear.ComponentData.Order, index + 1, _PLUGIN.guid .. "RetryBackground")
+        break
+    end
+end
 
 modutil.mod.Path.Wrap("CloseRunClearScreen", function (base, screen)
     base(screen)
@@ -106,5 +130,12 @@ modutil.mod.Path.Wrap("KillHero", function (base, ...)
         game.RemoveInputBlock({Name = "DeathWalkBlock"})
         game.RemoveInputBlock({Name = "HubPostDreamStartPresentation"})
         game.RemoveInputBlock({Name = "StartRoomPresentation"})
+    end
+end)
+
+modutil.mod.Path.Wrap("CreateScreenFromData", function (base, screen, componentData)
+    base(screen, componentData)
+    if screen.Components[_PLUGIN.guid .. "RetryBackground"] then
+        game.FlipVertical({ Id = screen.Components[_PLUGIN.guid .. "RetryBackground"].Id })
     end
 end)

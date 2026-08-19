@@ -1,6 +1,8 @@
 ## Game Over Screen
 
-Shows a Game Over screen on dying in a run similar to the game's Victory screen. Also adds a Victory screen for completing a regular Chaos Trial.
+- Shows a Game Over screen on dying in a run similar to the game's Victory screen.
+- Adds a Victory screen for completing a regular Chaos Trial.
+- Adds a retry button to instanly start a new run in the current route (also works with successful runs after True Ending).
 
 ## Installation
 
