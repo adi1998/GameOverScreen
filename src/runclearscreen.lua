@@ -18,13 +18,11 @@ game.ScreenData.RunClear.ComponentData[_PLUGIN.guid .. "RetryButton"] =
     {
         OrRequirements =
         {
-            [1] =
             {
                 {
                     PathTrue = { "GameState", "ReachedTrueEnding" },
                 },
             },
-            [2] =
             {
                 {
                     PathTrue = { "CurrentRun", "IsDreamRun" },
@@ -32,7 +30,7 @@ game.ScreenData.RunClear.ComponentData[_PLUGIN.guid .. "RetryButton"] =
             },
         },
         {
-            PathTrue = { "CurrentRun", "ActiveBounty" },
+            PathFalse = { "CurrentRun", "ActiveBounty" },
         }
     }
 }
@@ -95,5 +93,18 @@ modutil.mod.Path.Wrap("RunClearMessagePresentation", function (base, screen, mes
     base(screen, message, tooltipData)
     if screen.Components[_PLUGIN.guid .. "RetryButton"] then
         game.SetAlpha({ Id = screen.Components[_PLUGIN.guid .. "RetryButton"].Id, Duration = game.HUDScreen.FadeInDuration, Fraction = 1.0 })
+    end
+end)
+
+modutil.mod.Path.Wrap("KillHero", function (base, ...)
+    base(...)
+    if game.CurrentRun[_PLUGIN.guid .. "Retry"] and game.CurrentRun[_PLUGIN.guid .. "SavedStartOverArgs"] then
+        game.StartOver(game.CurrentRun[_PLUGIN.guid .. "SavedStartOverArgs"])
+        -- remove any hub load input blocks
+        game.RemoveInputBlock({Name = "DeathAreaTransition"})
+        game.RemoveInputBlock({Name = "DeathAreaSwitchRoom"})
+        game.RemoveInputBlock({Name = "DeathWalkBlock"})
+        game.RemoveInputBlock({Name = "HubPostDreamStartPresentation"})
+        game.RemoveInputBlock({Name = "StartRoomPresentation"})
     end
 end)

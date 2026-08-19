@@ -2,7 +2,7 @@
 
 ## [Unreleased]
 
-- Add Retry Run button.
+- Add Retry Run button, also works in a successful run.
 - Minor compat for Dream Dive Tweaks' Endless runs.
 - Fix the fade to black after Moros' appearance hiding the game over screen.
 - Don't show Victory subtitle for lost runs.

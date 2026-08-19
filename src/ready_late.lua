@@ -1,10 +1,10 @@
 modutil.mod.Path.Context.Env("OpenRunClearScreen", function ()
-    modutil.mod.Path.Wrap("RecordRunCleared", function (base)
+    modutil.mod.Path.Wrap("RecordRunCleared", function (base, ...)
         if game.ScreenData.RunClear[_PLUGIN.guid .. "SkipRecordRunCleared"] then
             print("skipping RecordRunCleared on death")
             return
         end
-        return base()
+        return base(...)
     end)
 
     modutil.mod.Path.Wrap("SetAlpha", function (base, args)
@@ -21,16 +21,5 @@ modutil.mod.Path.Context.Env("OpenRunClearScreen", function ()
             return
         end
         return base(...)
-    end)
-end)
-
-modutil.mod.Path.Context.Env("KillHero", function ()
-    modutil.mod.Path.Wrap("LoadMap", function (base, args)
-        args = args or {}
-        if game.CurrentRun[_PLUGIN.guid .. "Retry"] and game.CurrentRun[_PLUGIN.guid .. "SavedStartOverArgs"] then
-            game.StartOver(game.CurrentRun[_PLUGIN.guid .. "SavedStartOverArgs"])
-            return
-        end
-        return base(args)
     end)
 end)
