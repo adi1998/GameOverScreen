@@ -47,7 +47,7 @@ game.ScreenData.RunClear.ComponentData[_PLUGIN.guid .. "RetryBackground"] =
     AnimationName = "GUI\\ActionBar",
     GroupName = "HUD_Backing",
     X = game.ScreenCenterX,
-    Y = game.UIData.ActionBarBottomOffset,
+    Y = game.UIData.ActionBarBottomOffset-50,
     UseScreenScaleX = true,
     Requirements = retryRequirements
 }
@@ -112,6 +112,10 @@ end)
 modutil.mod.Path.Wrap("RunClearMessagePresentation", function (base, screen, message, tooltipData)
     if screen[_PLUGIN.guid .. "SkipRecordRunCleared"] and not( game.CurrentRun.IsDreamRun or game.CurrentRun.ActiveBounty ) then
         message = ""
+        if game.CurrentRun.KilledByName then
+            message = "Killed by {$TooltipData[1]}"
+            tooltipData = { game.CurrentRun.KilledByName }
+        end
         game.CurrentRun.VictoryMessage = nil
     end
     base(screen, message, tooltipData)
@@ -134,6 +138,16 @@ modutil.mod.Path.Wrap("KillHero", function (base, ...)
 end)
 
 modutil.mod.Path.Wrap("CreateScreenFromData", function (base, screen, componentData)
+    if screen[_PLUGIN.guid .. "SkipRecordRunCleared"] == true then
+        if modutil.mod.IndexArray.Get(game, {"BountyData", game.CurrentRun.ActiveBounty or _PLUGIN.guid .. "UnknownBounty", "Category"}) ~= "PackagedBounty" or not game.CurrentRun.BountyCleared then
+            if game.CurrentRun.BiomesReached.N and not game.CurrentRun.IsDreamRun then
+                screen.ComponentData.RunClearMessageText = game.DeepCopyTable(game.ScreenData.RunClear.ComponentData.SurfaceRunClearMessageText)
+            end
+            if game.CurrentRun.ModsNikkelMHadesBiomesIsModdedRun and not game.CurrentRun.IsDreamRun then
+                screen.ComponentData.RunClearMessageText.TextArgs.Color = { 245, 255, 225, 255 }
+            end
+        end
+    end
     base(screen, componentData)
     if screen.Components[_PLUGIN.guid .. "RetryBackground"] then
         game.FlipVertical({ Id = screen.Components[_PLUGIN.guid .. "RetryBackground"].Id })

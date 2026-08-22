@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+- Show a "killed by X" message as the subtitle
+
 ## [1.1.0] - 2026-08-19
 
 - Add Retry Run button, also works in a successful run.
