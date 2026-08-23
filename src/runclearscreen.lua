@@ -137,7 +137,7 @@ modutil.mod.Path.Wrap("KillHero", function (base, ...)
     end
 end)
 
-modutil.mod.Path.Wrap("CreateScreenFromData", function (base, screen, componentData)
+modutil.mod.Path.Wrap("CreateScreenFromData", function (base, screen, componentData, args)
     if screen[_PLUGIN.guid .. "SkipRecordRunCleared"] == true then
         if modutil.mod.IndexArray.Get(game, {"BountyData", game.CurrentRun.ActiveBounty or _PLUGIN.guid .. "UnknownBounty", "Category"}) ~= "PackagedBounty" or not game.CurrentRun.BountyCleared then
             if game.CurrentRun.BiomesReached.N and not game.CurrentRun.IsDreamRun then
@@ -148,7 +148,7 @@ modutil.mod.Path.Wrap("CreateScreenFromData", function (base, screen, componentD
             end
         end
     end
-    base(screen, componentData)
+    base(screen, componentData, args)
     if screen.Components[_PLUGIN.guid .. "RetryBackground"] then
         game.FlipVertical({ Id = screen.Components[_PLUGIN.guid .. "RetryBackground"].Id })
     end
