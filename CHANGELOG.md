@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+## [1.1.2] - 2026-09-08
+
 - Fix "Killed by X" not resolving the display name in some cases.
 
 ## [1.1.1] - 2026-08-23
@@ -22,7 +24,8 @@
 
 - First version of the mod!
 
-[unreleased]: https://github.com/adi1998/GameOverScreen/compare/1.1.1...HEAD
+[unreleased]: https://github.com/adi1998/GameOverScreen/compare/1.1.2...HEAD
+[1.1.2]: https://github.com/adi1998/GameOverScreen/compare/1.1.1...1.1.2
 [1.1.1]: https://github.com/adi1998/GameOverScreen/compare/1.1.0...1.1.1
 [1.1.0]: https://github.com/adi1998/GameOverScreen/compare/1.0.2...1.1.0
 [1.0.2]: https://github.com/adi1998/GameOverScreen/compare/1.0.1...1.0.2
