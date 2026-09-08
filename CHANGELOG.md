@@ -2,9 +2,11 @@
 
 ## [Unreleased]
 
+- Fix "Killed by X" not resolving the display name in some cases.
+
 ## [1.1.1] - 2026-08-23
 
-- Show a "killed by X" message as the subtitle.
+- Show a "Killed by X" message as the subtitle.
 - Fix NPC boon menu showing Melinoe.
 
 ## [1.1.0] - 2026-08-19

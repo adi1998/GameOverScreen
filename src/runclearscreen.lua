@@ -113,8 +113,13 @@ modutil.mod.Path.Wrap("RunClearMessagePresentation", function (base, screen, mes
     if screen[_PLUGIN.guid .. "SkipRecordRunCleared"] and not( game.CurrentRun.IsDreamRun or game.CurrentRun.ActiveBounty ) then
         message = ""
         if game.CurrentRun.KilledByName then
+            local sourceName = game.CurrentRun.KilledByName
+            if game.EnemyData[sourceName] ~= nil then
+                sourceName = game.GetGenusName(game.EnemyData[sourceName])
+            end
+            local mappedName = screen.DamageSourceMap[sourceName] or sourceName
             message = "Killed by {$TooltipData[1]}"
-            tooltipData = { game.CurrentRun.KilledByName }
+            tooltipData = { mappedName }
         end
         game.CurrentRun.VictoryMessage = nil
     end
