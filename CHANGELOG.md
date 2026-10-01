@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+- Block retry button from showing up in ZJ until 10 clears (story completed).
+
 ## [1.1.2] - 2026-09-08
 
 - Fix "Killed by X" not resolving the display name in some cases.

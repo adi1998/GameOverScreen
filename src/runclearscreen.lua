@@ -5,10 +5,21 @@ local retryRequirements = {
             {
                 PathTrue = { "GameState", "ReachedTrueEnding" },
             },
+            {
+                PathFalse = { "CurrentRun", "ModsNikkelMHadesBiomesIsModdedRun" }
+            }
         },
         {
             {
                 PathTrue = { "CurrentRun", "IsDreamRun" },
+            },
+        },
+        {
+            {
+                PathTrue = { "GameState", "TextLinesRecord", "Ending01" },
+            },
+            {
+                PathTrue = { "CurrentRun", "ModsNikkelMHadesBiomesIsModdedRun" }
             },
         },
         {
