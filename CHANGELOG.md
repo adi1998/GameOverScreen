@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+## [1.1.3] - 2026-10-01
+
 - Block retry button from showing up in ZJ until 10 clears (story completed).
 
 ## [1.1.2] - 2026-09-08
@@ -26,7 +28,8 @@
 
 - First version of the mod!
 
-[unreleased]: https://github.com/adi1998/GameOverScreen/compare/1.1.2...HEAD
+[unreleased]: https://github.com/adi1998/GameOverScreen/compare/1.1.3...HEAD
+[1.1.3]: https://github.com/adi1998/GameOverScreen/compare/1.1.2...1.1.3
 [1.1.2]: https://github.com/adi1998/GameOverScreen/compare/1.1.1...1.1.2
 [1.1.1]: https://github.com/adi1998/GameOverScreen/compare/1.1.0...1.1.1
 [1.1.0]: https://github.com/adi1998/GameOverScreen/compare/1.0.2...1.1.0
