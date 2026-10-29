@@ -103,10 +103,11 @@ modutil.mod.Path.Wrap("DeathPresentation", function (base, ...)
     -- only show this if its never seen before in this run
     if (game.CurrentRun.ScreenViewRecord["RunClear"] or 0) <= 0 or game.CurrentRun["zerp-DreamDiveTweaks" .. "EndlessStarted"] or game.CurrentRun["zerp-BossRush" .. "GauntletStarted"] then
         game.FadeIn({ Duration = 0 })
-        if game.CurrentRun["zerp-DreamDiveTweaks" .. "EndlessStarted"] or game.CurrentRun["zerp-BossRush" .. "GauntletStarted"] then
-            game.CurrentRun.Cleared = true
-        end
+        game.CurrentRun.Cleared = true
         game.thread(mod.OpenGameOverScreen)
+        if not (game.CurrentRun["zerp-DreamDiveTweaks" .. "EndlessStarted"] or game.CurrentRun["zerp-BossRush" .. "GauntletStarted"]) then
+            game.CurrentRun.Cleared = nil
+        end
         game.waitUntil(_PLUGIN.guid .. "CloseRunClearScreenTriggered")
     end
 end)
