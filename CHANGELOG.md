@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+- Fix Game Over screen showing up in the final ZJ story run and causing a black screen.
+
 ## [1.1.4] - 2026-10-29
 
 ## [1.1.3] - 2026-10-01

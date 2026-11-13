@@ -31,7 +31,10 @@ local retryRequirements = {
     },
     {
         PathFalse = { "CurrentRun", "ActiveBounty" },
-    }
+    },
+    {
+        PathFalse = { "CurrentRun", "TextLinesRecord", "Ending01" },
+    },
 }
 
 game.ScreenData.RunClear.ComponentData[_PLUGIN.guid .. "RetryButton"] =
@@ -101,7 +104,10 @@ end
 modutil.mod.Path.Wrap("DeathPresentation", function (base, ...)
     base(...)
     -- only show this if its never seen before in this run
-    if (game.CurrentRun.ScreenViewRecord["RunClear"] or 0) <= 0 or game.CurrentRun["zerp-DreamDiveTweaks" .. "EndlessStarted"] or game.CurrentRun["zerp-BossRush" .. "GauntletStarted"] then
+    if (not game.CurrentRun.TextLinesRecord.Ending01 and (game.CurrentRun.ScreenViewRecord["RunClear"] or 0) <= 0) or
+       game.CurrentRun["zerp-DreamDiveTweaks" .. "EndlessStarted"] or
+       game.CurrentRun["zerp-BossRush" .. "GauntletStarted"]
+    then
         game.FadeIn({ Duration = 0 })
         game.CurrentRun.Cleared = true
         game.thread(mod.OpenGameOverScreen)
